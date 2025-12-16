@@ -22,6 +22,12 @@ app.use("/api/admin", adminAuthRoute);
 const serviceRoutes = require("./routes/serviceRoutes");
 app.use("/api/services", serviceRoutes);
 
+// Inquiry Routes
+const inquiryRoutes = require("./routes/inquiryRoutes");
+app.use("/api/inquiry", inquiryRoutes);
+
+
+
 // =========================================
 
 // Connect to MongoDB
