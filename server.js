@@ -15,8 +15,8 @@ const contactRoute = require("./routes/contact");
 app.use("/api/contact", contactRoute);
 
 // Admin Auth Routes
-const adminAuthRoute = require("./routes/adminAuth");
-app.use("/api/admin", adminAuthRoute);
+// const adminAuthRoute = require("./routes/adminAuth");
+// app.use("/api/admin", adminAuthRoute);
 
 // Services Routes
 const serviceRoutes = require("./routes/serviceRoutes");
@@ -26,6 +26,7 @@ app.use("/api/services", serviceRoutes);
 const inquiryRoutes = require("./routes/inquiryRoutes");
 app.use("/api/inquiry", inquiryRoutes);
 
+// app.use("/api/user", require("./routes/userAuth"));
 
 
 // =========================================
