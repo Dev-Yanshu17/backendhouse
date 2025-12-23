@@ -4,7 +4,7 @@ const cors = require("cors");
 
 const app = express();
 
-// Middleware
+// ================= MIDDLEWARE =================
 app.use(cors());
 app.use(express.json());
 
@@ -26,20 +26,29 @@ app.use("/api/services", serviceRoutes);
 const inquiryRoutes = require("./routes/inquiryRoutes");
 app.use("/api/inquiry", inquiryRoutes);
 
+// User Auth Routes
 // app.use("/api/user", require("./routes/userAuth"));
 
+// ✅ Property Routes (NEW)
+const propertyRoutes = require("./routes/propertyRoutes");
+app.use("/api/properties", propertyRoutes);
 
-// =========================================
+// ================= ROOT ROUTE =================
+app.get("/", (req, res) => {
+  res.send("Real Estate Backend API is running...");
+});
 
-// Connect to MongoDB
+// ================= DATABASE =================
 mongoose
   .connect("mongodb://127.0.0.1:27017/realestate", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.log(err));
+  .then(() => console.log("✅ MongoDB connected"))
+  .catch((err) => console.log("❌ MongoDB error:", err));
 
-// Start server
+// ================= SERVER =================
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () =>
+  console.log(`🚀 Server running on port ${PORT}`)
+);
