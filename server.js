@@ -22,9 +22,8 @@ app.use("/api/contact", contactRoute);
 const serviceRoutes = require("./routes/serviceRoutes");
 app.use("/api/services", serviceRoutes);
 
-// Inquiry Routes
-const inquiryRoutes = require("./routes/inquiryRoutes");
-app.use("/api/inquiry", inquiryRoutes);
+const appointmentRoutes = require("./routes/appointmentRoutes");
+app.use("/api/appointment", appointmentRoutes);
 
 // User Auth Routes
 // app.use("/api/user", require("./routes/userAuth"));
@@ -37,6 +36,8 @@ app.use("/api/properties", propertyRoutes);
 app.get("/", (req, res) => {
   res.send("Real Estate Backend API is running...");
 });
+
+app.use("/api/faqs", require("./routes/faqRoutes"));
 
 // ================= DATABASE =================
 mongoose
