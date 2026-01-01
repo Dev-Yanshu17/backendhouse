@@ -14,30 +14,27 @@ app.use(express.json());
 const contactRoute = require("./routes/contact");
 app.use("/api/contact", contactRoute);
 
-// Admin Auth Routes
-// const adminAuthRoute = require("./routes/adminAuth");
-// app.use("/api/admin", adminAuthRoute);
-
 // Services Routes
 const serviceRoutes = require("./routes/serviceRoutes");
 app.use("/api/services", serviceRoutes);
 
+// Appointment Routes
 const appointmentRoutes = require("./routes/appointmentRoutes");
 app.use("/api/appointment", appointmentRoutes);
 
-// User Auth Routes
-// app.use("/api/user", require("./routes/userAuth"));
+// FAQ Routes
+const faqRoutes = require("./routes/faqRoutes");
+app.use("/api/faqs", faqRoutes);
 
-// ✅ Property Routes (NEW)
-const propertyRoutes = require("./routes/propertyRoutes");
-app.use("/api/properties", propertyRoutes);
+const projectRoutes = require("./routes/projectRoutes");
+
+app.use("/api/projects", projectRoutes);
+
 
 // ================= ROOT ROUTE =================
 app.get("/", (req, res) => {
-  res.send("Real Estate Backend API is running...");
+  res.send("🏡 Real Estate Backend API is running...");
 });
-
-app.use("/api/faqs", require("./routes/faqRoutes"));
 
 // ================= DATABASE =================
 mongoose
@@ -50,6 +47,6 @@ mongoose
 
 // ================= SERVER =================
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () =>
-  console.log(`🚀 Server running on port ${PORT}`)
-);
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+});
