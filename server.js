@@ -31,6 +31,11 @@ const projectRoutes = require("./routes/projectRoutes");
 app.use("/api/projects", projectRoutes);
 
 
+app.use("/api/testimonials", require("./routes/testimonialRoutes"));
+
+
+
+
 // ================= ROOT ROUTE =================
 app.get("/", (req, res) => {
   res.send("🏡 Real Estate Backend API is running...");
