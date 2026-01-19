@@ -1,6 +1,13 @@
 const mongoose = require("mongoose");
 const Counter = require("./counter");
 
+/* Floor Plan Schema */
+const FloorPlanSchema = new mongoose.Schema({
+  title: String,
+  size: String,
+  image: String
+});
+
 const ProjectSchema = new mongoose.Schema(
   {
     id: { type: Number, unique: true },
@@ -25,12 +32,16 @@ const ProjectSchema = new mongoose.Schema(
     totalHouseCost: Number,
     houseNumbers: [String],
 
-    images: [String],           // ⬅ Add project images URLs
-    amenities: [String],        // ⬅ Add amenities like 'Gym', 'Pool', etc.
+    images: [String],
+    amenities: [String],
+
+    /* 🔥 Floor Plans */
+    floorPlans: [FloorPlanSchema]
   },
   { timestamps: true }
 );
 
+/* Auto ID + Calculations */
 ProjectSchema.pre("save", async function (next) {
   if (!this.id) {
     const counter = await Counter.findOneAndUpdate(
