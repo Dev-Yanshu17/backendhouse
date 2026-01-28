@@ -5,21 +5,40 @@ const Counter = require("./counter");
 const FloorPlanSchema = new mongoose.Schema({
   title: String,
   size: String,
-  image: String
+  image: String,
 });
 
+/* Project Schema */
 const ProjectSchema = new mongoose.Schema(
   {
     id: { type: Number, unique: true },
 
     projectName: { type: String, required: true },
+
     projectType: {
       type: String,
       enum: ["flat", "banglow", "row-house"],
       required: true,
     },
 
+    status: {
+      type: String,
+      enum: ["upcoming", "running", "completed"],
+      default: "upcoming",
+    },
+
     location: String,
+
+    // 📍 Location Coordinates
+    latitude: {
+      type: Number,
+      required: true,
+    },
+    longitude: {
+      type: Number,
+      required: true,
+    },
+
     perHouseCost: Number,
     squareFeet: Number,
 
@@ -35,8 +54,7 @@ const ProjectSchema = new mongoose.Schema(
     images: [String],
     amenities: [String],
 
-    /* 🔥 Floor Plans */
-    floorPlans: [FloorPlanSchema]
+    floorPlans: [FloorPlanSchema],
   },
   { timestamps: true }
 );
@@ -52,6 +70,7 @@ ProjectSchema.pre("save", async function (next) {
     this.id = counter.count;
   }
 
+  // Flat logic
   if (this.projectType === "flat") {
     this.totalHouse =
       this.totalWings * this.totalFloors * this.perFloorHouse;
@@ -67,6 +86,7 @@ ProjectSchema.pre("save", async function (next) {
     }
     this.houseNumbers = houses;
   } else {
+    // Banglow / Row-house
     this.totalHouse = this.totalPlots;
     this.houseNumbers = Array.from(
       { length: this.totalPlots },
